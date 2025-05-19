@@ -6,6 +6,7 @@ import Link from "next/link";
 import Header from "@/components/header";
 import { ClerkProvider } from "@clerk/nextjs";
 import { shadesOfPurple } from "@clerk/themes";
+import { Toaster } from "sonner";
 
 // Load Inter font with weight 400 (normal) and 700 (bold)
 const interFont = Inter({
@@ -53,6 +54,7 @@ export default function RootLayout({ children }) {
           <main className="min-h-screen">
           {children}
           </main>
+          <Toaster richColors/>
           <footer className="border-dotted border-t-1 border-gray-950 dark:border-gray-500 py-8">
             <div className="container mx-auto"> 
               <div className="grid grid-cols-1 gap-10 md:grid-cols-2">

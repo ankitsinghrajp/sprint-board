@@ -4,7 +4,9 @@ import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 import { PenBox } from "lucide-react";
 import UserMenu from "./user-menu";
-const Header = () => {
+import { checkUser } from "@/lib/checkUser";
+const Header = async() => {
+  await checkUser()
   return (
   
     <header className="border-dotted bg-[#e0f2ff]/90 fixed z-50 top-0 w-full border-b-1 border-gray-950 dark:border-gray-500 dark:bg-[#09090b]/90">
