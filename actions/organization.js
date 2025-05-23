@@ -1,3 +1,4 @@
+"use server"
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
@@ -90,3 +91,59 @@ export async function getProjects(orgId){
 
 }
 
+export async function getOrganizationUser(orgId) {
+  const { userId } = await auth();
+
+  if (!userId || !orgId) {
+    throw new Error("Unauthorized!");
+  }
+
+  const user = await db.user.findUnique({
+    where: {
+      clerkUserId: userId,
+    },
+  });
+
+  if (!user) {
+    throw new Error("User not found!");
+  }
+
+  const membershipRes = await fetch(
+    `https://api.clerk.dev/v1/organizations/${orgId}/memberships`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!membershipRes.ok) {
+    throw new Error(`Failed to fetch memberships: ${membershipRes.status}`);
+  }
+
+  const membershipData = await membershipRes.json();
+
+//   console.log("Membershipdata is here: ",membershipData);
+
+  const clerkUserIds = (membershipData.data || [])
+  .map((member) => member.public_user_data.user_id) // ✅ This is the actual Clerk user ID
+  .filter(Boolean);
+
+    // console.log("This is the clerkUserIds: ",clerkUserIds);
+
+  const users = await db.user.findMany({
+    where: {
+      clerkUserId: {
+        in: clerkUserIds,
+      },
+    },
+    orderBy: {
+      name: "asc",
+    },
+  });
+
+//   console.log("This is the users data: ",users);
+
+  return users;
+}

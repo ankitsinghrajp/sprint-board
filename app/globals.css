@@ -150,3 +150,9 @@ body {
      
   }
 }
+
+.wmde-markdown ul {
+   list-style-type: disc;
+   padding-left: 15px !important;
+   color:whitesmoke;
+}
