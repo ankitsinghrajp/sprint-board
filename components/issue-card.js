@@ -1,3 +1,4 @@
+"use client"
 import { formatDistanceToNow } from "date-fns"
 import { Badge } from "./ui/badge"
 import UserAvatar from "./user-avatar"
