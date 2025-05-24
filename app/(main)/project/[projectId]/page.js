@@ -23,7 +23,7 @@ const page = async ({params}) => {
         />
 
         {/* {Sprint Board} */}
-        {project.sprints.length > 0? (
+        {project?.sprints?.length > 0? (
         <>
         <SprintBoard
            sprints={project.sprints}

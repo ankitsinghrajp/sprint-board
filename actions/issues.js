@@ -81,3 +81,143 @@ export async function getIssuesForSprint(sprintId){
 
     return issues;
 }
+
+
+// Now this is something the big operation there might be a lot of issues that are updated
+// lot of cards that have their orders changed
+// To handle such big operations we need to use a transaction concept
+
+export async function updateIssueOrder(updatedIssues){
+      const {userId, orgId} = await auth();
+
+      if(!userId || !orgId){
+        throw new Error("Unauthorized!");
+      }
+
+      await db.$transaction(async (prisma)=>{
+
+        for(const issue of updatedIssues){
+            await prisma.issue.update({
+                where:{
+                    id: issue.id,
+                },
+                data:{
+                    order: issue.order,
+                    status: issue.status,
+                }
+            });
+        }
+      });
+
+      return {success:true};
+}
+
+
+export async function deleteIssue(issueId){
+
+     const {userId, orgId} = await auth();
+
+     if(!userId || !orgId){
+        throw new error("Unauthorized!");
+     }
+
+     const user = await db.user.findUnique({
+        where:{
+            clerkUserId: userId,
+        }
+     })
+
+     if(!user){
+        throw new Error("User not found!");
+     }
+
+
+     const issue = await db.issue.findUnique({
+        where:{
+            id: issueId,
+        },
+        include:{
+            project: true,
+        }
+
+     });
+
+     if(!issue){
+        throw new Error("Issue not found!");
+     }
+
+     if(issue.reporterId !== user.id && issue.assigneeId !== user.id){
+        throw new Error("You are not authorized to delete this issue!");
+     }
+
+     await db.issue.delete({
+        where:{
+            id:issueId,
+        }
+     });
+
+     return {success:true};
+}
+
+
+export async function updateIssue(issueId,data){
+    const {userId, orgId} = await auth();
+
+    if(!userId || !orgId){
+        throw new Error("Unauthorized!");
+    }
+
+    const user = await db.user.findUnique({
+        where:{
+            clerkUserId: userId,
+        }
+    });
+
+    if(!user){
+        throw new Error("User not found!");
+    }
+
+    try {
+
+        const issue = await db.issue.findUnique({
+            where:{
+                id: issueId,
+            },
+            include:{
+                 project:true,
+            },
+
+        });
+
+
+        if(!issue){
+            throw new Error("Issue not found!");
+        }
+
+        if(issue.reporterId !== user.id && issue.assigneeId !== user.id){
+            throw new Error("You are not authorized to update this issue!");
+        }
+
+
+        const updateIssue = await db.issue.update({
+            where:{
+                id: issueId,
+            },
+            data:{
+                status: data.status,
+                priority: data.priority,
+            },
+            include:{
+                assignee:true,
+                reporter: true,
+            }
+        });
+
+        return updateIssue;
+
+    } catch (error) {
+       throw new Error("Error updating issue" + error.message);
+    }
+}
+
+
