@@ -73,7 +73,7 @@ export default function RootLayout({ children }) {
 
                    <div className="flex md:hidden mt-10 flex-col">
                   <h2 className="font-bold text-lg dark:text-gray-200">MY OTHER PROJECTS</h2>
-                  <Link className="text-sm my-4 text-blue-600 dark:text-blue-500" href="https://elevate-ai-iota.vercel.app/">&gt; Ankit's Elevate AI </Link>
+                  <Link className="text-sm my-4 text-blue-600 dark:text-blue-500" href="https://elevate-ai-iota.vercel.app/">&gt; Ankit&apos;s Elevate AI </Link>
                   <Link className="text-sm text-blue-600 dark:text-blue-500 " href="https://car-vision.vercel.app/">&gt; AI Car Market Place</Link>
                 </div>
                   </div>
@@ -82,7 +82,7 @@ export default function RootLayout({ children }) {
                 <div className="flex justify-center">
                   <div className="md:flex hidden md:flex-col">
                   <h2 className="font-bold text-xl dark:text-gray-200">MY OTHER PROJECTS</h2>
-                  <Link className="text-sm my-4 text-blue-500" href="https://elevate-ai-iota.vercel.app/">&gt; Ankit's Elevate AI </Link>
+                  <Link className="text-sm my-4 text-blue-500" href="https://elevate-ai-iota.vercel.app/">&gt; Ankit&apos;s Elevate AI </Link>
                   <Link className="text-sm text-blue-500 " href="https://car-vision.vercel.app/">&gt; AI Car Market Place</Link>
                 </div>
 </div>

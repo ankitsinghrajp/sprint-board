@@ -3,7 +3,7 @@ import { OrganizationList, useOrganization } from "@clerk/nextjs"
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const page = () => {
+const Page = () => {
 
   const {organization} = useOrganization();
 
@@ -28,4 +28,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
