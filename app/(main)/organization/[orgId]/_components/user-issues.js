@@ -21,7 +21,7 @@ const UserIssues = async ({userId}) => {
 
   return (
     <>
-    <h1 className='text-4xl font-bold gradient-title mb-4'>My Issues</h1>
+    <h1 className='text-4xl font-bold gradient-title ml-5 mb-4'>My Issues</h1>
     <Tabs defaultValue="assigned" className="w-full mb-4 bg-gray-200 dark:bg-black rounded-md mx-3 px-4 py-4">
   <TabsList className={'w-full mt-2 bg-gray-400 dark:bg-[#09090b]'}>
     <TabsTrigger value="assigned">Assign To You</TabsTrigger>

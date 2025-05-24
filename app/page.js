@@ -11,6 +11,7 @@ import {
 
 import faqs from "@/data/faqs";
 import Link from "next/link";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 
 const features = [
   {
@@ -60,18 +61,29 @@ export default function HOME() {
             <p className="text-xl text-gray-900 dark:text-gray-300 mb-10 max-w-3xl mx-auto">
               Simplify teamwork with our smart project management solution that helps teams plan, execute, and achieve goals effortlessly.
             </p>
+            <SignedOut>
             <Link href="/onboarding">
               <Button size={"lg"} className={" font-semibold cursor-pointer mr-4"}>
                 Get Started
                 <ChevronRight className="ml-1" size={18} />
               </Button>
             </Link>
-
+            </SignedOut>
+            <SignedIn>
+            <Link href="/onboarding">
+              <Button size={"lg"} className={" font-semibold cursor-pointer mr-4"}>
+                My Organization
+                <ChevronRight className="ml-1" size={18} />
+              </Button>
+            </Link>
+            </SignedIn>
+            <SignedOut>
             <Link href="#features">
               <Button  className="cursor-pointer" size={"lg"} variant={"outline"}>
                 Learn More
               </Button>
             </Link>
+            </SignedOut>
           </div>
         </section>
 
@@ -141,10 +153,18 @@ export default function HOME() {
            
            <h3 className="text-3xl font-bold dark:text-gray-200 text-gray-800 mb-12">Ready to supercharge your productivity effortlessly.</h3>
            <p className="text-xl mb-12 dark:text-gray-300 text-gray-600">Thousands of teams rely on SprintBoard to keep their projects on track and collaborate seamlessly. Discover how easy productivity and teamwork can be with SprintBoard by your side.</p>
+           <SignedOut>
            <Link href={'/onboarding'}>
            <Button className={'font-semibold cursor-pointer animate-bounce'} size={'lg'}>Start For Free
             <ArrowRight className="h-5 ml-2 w-5"/>
             </Button></Link>
+            </SignedOut>
+           <SignedIn>
+           <Link href={'/onboarding'}>
+           <Button className={'font-semibold cursor-pointer animate-bounce'} size={'lg'}>Create Organization
+            <ArrowRight className="h-5 ml-2 w-5"/>
+            </Button></Link>
+            </SignedIn>
           </div>
         </section>
       </div>

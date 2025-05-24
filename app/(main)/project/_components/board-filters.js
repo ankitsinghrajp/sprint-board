@@ -62,7 +62,7 @@ const BoardFilters = ({ issues, onFilterChange }) => {
         />
 
         <div className="flex-shrink-0">
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 ml-3 flex-wrap">
             {assignees.map((assignee, i) => {
               const selected = selectedAssignees.includes(assignee.id);
               return (
