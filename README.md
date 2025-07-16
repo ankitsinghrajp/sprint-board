@@ -33,7 +33,7 @@ A collaborative task management board built using HTML, CSS, JavaScript, Node.js
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-username/sprint-board.git
+   git clone https://github.com/ankitsinghrajp/sprint-board.git
    cd sprint-board
 
 ## Enivornment Variables:
